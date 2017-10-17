@@ -7,9 +7,11 @@ import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import mongoose from 'mongoose';
 
-import schema from './schema'
+import schema from './schema';
+mongoose.Promise = Promise;
+
 const dbConfig = {
-  uri: 'mongodb://localhost:27017/graphql-server',
+  uri: 'mongodb://localhost:27017/graphql-poc',
   options: {
     useMongoClient: true
   }

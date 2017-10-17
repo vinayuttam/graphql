@@ -1,6 +1,16 @@
+/**
+ * Dependencies
+ */
+import Base from './Base.schema';
+
 const User = `
 extend type Query {
-  User: User
+  User(id: ID!): User
+  Users: [User]
+}
+
+extend type Mutation {
+  createUser(data: UserInput): User
 }
 
 type User {
@@ -10,6 +20,12 @@ type User {
   lastName: String
   fullName: String
 }
+
+input UserInput {
+  firstName: String
+  lastName: String
+  username: String
+}
 `;
 
-export default () => [User];
+export default () => [User, Base];

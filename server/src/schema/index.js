@@ -1,9 +1,13 @@
-import { makeExecutableSchema } from 'graphql-tools';
-import resolvers from '../resolvers';
+/**
+ * Dependencies
+ */
+import { makeExecutableSchema  } from 'graphql-tools';
+import Base from './Base.schema';
 import User from './User.schema';
+import resolvers from '../resolvers';
 
 export default makeExecutableSchema({
-  typeDefs: [User],
+  typeDefs: [Base, User],
   resolvers,
   logger: { log: e => console.log(e) }
 });
