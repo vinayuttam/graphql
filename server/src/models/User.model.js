@@ -7,17 +7,29 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   firstName: {
-    type: String,
+    required: true,
     trim: true,
+    type: String,
+  },
+  middleName: {
+    trim: true,
+    type: String,
   },
   lastName: {
-    type: String,
+    required: true,
     trim: true,
+    type: String,
   },
   username: {
+    required: true,
+    trim: true,
     type: String,
-    trim: true
-  }
+  },
+  password: {
+    required: true,
+    trim: true,
+    type: String,
+  },
 });
 
 export default mongoose.model('User', UserSchema);

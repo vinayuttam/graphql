@@ -1,6 +1,8 @@
 /**
  * Dependencies
  */
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { UserModel } from '../models';
 
 export const Query = {
@@ -21,7 +23,36 @@ export const User = {
 
 export const Mutation = {
   createUser: (_, params) => {
-    const user = new UserModel(params.data);
+    const passwordSalt = bcrypt.genSaltSync(10);
+    const passwordHash = bcrypt.hashSync(params.data.password, passwordSalt);
+    const { firstName, middleName, lastName, username } = params.data;
+    const user = new UserModel({
+      firstName,
+      middleName,
+      lastName,
+      username,
+      password: passwordHash
+    });
+
     return user.save();
+  },
+  loginUser: async (_, params) => {
+    const { username, password } = params.data;
+
+    const user = await UserModel.findOne({ username }, 'password');
+
+    if (user && bcrypt.compareSync(password, user.password)) {
+      const token = jwt.sign(
+        { username: user.username },
+        'superSecretText',
+        { expiresIn: (60 * 60) },
+      );
+
+      return {
+        token,
+        message: 'message',
+        success: true
+      }
+    }
   }
 };
