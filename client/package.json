@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "GraphQL Client Application using React, React Router, Redux, Apollo Client",
   "private": true,
+  "proxy": "http://localhost:4000",
   "author": [
     {
       "name": "Vinay Uttam Vemparala",
