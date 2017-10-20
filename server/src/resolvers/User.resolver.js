@@ -43,7 +43,7 @@ export const Mutation = {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = jwt.sign(
-        { username: user.username },
+        { username },
         'superSecretText',
         { expiresIn: (60 * 60) },
       );
@@ -51,7 +51,12 @@ export const Mutation = {
       return {
         token,
         message: 'message',
-        success: true
+        success: true,
+      }
+    } else {
+      return {
+        message: 'User authentication failed! Either User is not found (or) Incorrect login credentials',
+        success: false,
       }
     }
   }
