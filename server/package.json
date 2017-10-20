@@ -2,7 +2,6 @@
   "name": "graphql-server",
   "version": "1.0.0",
   "description": "GraphQL API Server",
-  "main": "index.js",
   "scripts": {
     "build": "babel src -d lib",
     "start": "nodemon --exec babel-node src/index.js",
@@ -12,6 +11,9 @@
     "graphql",
     "express-graphql",
     "graphql-tools",
+    "mongodb",
+    "mongoose",
+    "jest",
     "babel"
   ],
   "author": [
@@ -20,7 +22,7 @@
       "email": "vinayuttamvemparala@live.com"
     }
   ],
-  "license": "ISC",
+  "private": true,
   "dependencies": {
     "bcrypt": "^1.0.3",
     "chalk": "^2.1.0",
