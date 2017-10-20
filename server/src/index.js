@@ -8,13 +8,14 @@ import graphqlHTTP from 'express-graphql';
 import mongoose from 'mongoose';
 
 import schema from './schema';
+
 mongoose.Promise = Promise;
 
 const dbConfig = {
   uri: 'mongodb://localhost:27017/graphql-poc',
   options: {
-    useMongoClient: true
-  }
+    useMongoClient: true,
+  },
 };
 
 const app = express();
@@ -30,12 +31,13 @@ app.use((req, res, next) => {
 app.use(
   '/graphql',
   graphqlHTTP(() => ({
-    schema: schema,
+    schema,
     graphiql: true,
   })),
 );
 
-mongoose.connect(dbConfig.uri, dbConfig.options, err => {
+/* eslint-disable no-console */
+mongoose.connect(dbConfig.uri, dbConfig.options, (err) => {
   if (err) {
     console.error(chalk.red(`Could not connect to MongoDB at ${dbConfig.uri}`));
     console.log(err);

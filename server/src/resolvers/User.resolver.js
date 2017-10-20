@@ -6,32 +6,28 @@ import jwt from 'jsonwebtoken';
 import { UserModel } from '../models';
 
 export const Query = {
-  Users: () => {
-    return UserModel.find();
-  },
+  Users: () => UserModel.find(),
 
-  User: (_, params) => {
-    return UserModel.findById(params.id);
-  }
+  User: (_, params) => UserModel.findById(params.id),
 };
 
 export const User = {
-  fullName: source => {
-    return `${source.firstName} ${source.lastName}`
-  }
-}
+  fullName: source => `${source.firstName} ${source.lastName}`,
+};
 
 export const Mutation = {
   createUser: (_, params) => {
     const passwordSalt = bcrypt.genSaltSync(10);
     const passwordHash = bcrypt.hashSync(params.data.password, passwordSalt);
-    const { firstName, middleName, lastName, username } = params.data;
+    const {
+      firstName, middleName, lastName, username,
+    } = params.data;
     const user = new UserModel({
       firstName,
       middleName,
       lastName,
       username,
-      password: passwordHash
+      password: passwordHash,
     });
 
     return user.save();
@@ -52,12 +48,11 @@ export const Mutation = {
         token,
         message: 'message',
         success: true,
-      }
-    } else {
-      return {
-        message: 'User authentication failed! Either User is not found (or) Incorrect login credentials',
-        success: false,
-      }
+      };
     }
-  }
+    return {
+      message: 'User authentication failed! Either User is not found (or) Incorrect login credentials',
+      success: false,
+    };
+  },
 };

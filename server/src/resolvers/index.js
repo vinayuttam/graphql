@@ -5,10 +5,10 @@ import { Query as UserQuery, Mutation as UserMutation, User } from './User.resol
 
 export default {
   Query: {
-    ...UserQuery
+    ...UserQuery,
   },
   Mutation: {
-    ...UserMutation
+    ...UserMutation,
   },
   User,
 };

@@ -5,9 +5,15 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint server client"
   },
-  "keywords": [ "graphql", "express-graphql", "react", "redux", "webpack" ],
+  "keywords": [
+    "graphql",
+    "express-graphql",
+    "react",
+    "redux",
+    "webpack"
+  ],
   "author": [
     {
       "name": "Vinay Uttam Vemparala",
@@ -17,5 +23,41 @@
   "workspaces": [
     "client",
     "server"
+  ],
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.2.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0"
+  },
+  "eslintConfig": {
+    "extends": "airbnb",
+    "plugins": [
+      "react",
+      "jest"
+    ],
+    "env": {
+      "browser": true,
+      "node": true,
+      "jest/globals": true
+    },
+    "rules": {
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".js"
+          ]
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "lib",
+    "dist",
+    "registerServiceWorker.js"
   ]
 }
