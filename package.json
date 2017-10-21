@@ -62,7 +62,7 @@
   "eslintIgnore": [
     "node_modules",
     "lib",
-    "dist",
+    "build",
     "registerServiceWorker.js"
   ]
 }

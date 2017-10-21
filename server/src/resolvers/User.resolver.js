@@ -3,7 +3,7 @@
  */
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { UserModel } from '../models';
+import UserModel from '../models';
 
 export const Query = {
   Users: () => UserModel.find(),
