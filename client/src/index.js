@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import RootContainer from './containers/Root.container';
+import { apolloClient, configureStore, history } from './store';
+import './styles.css';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = configureStore();
+
+ReactDOM.render(
+  <RootContainer apolloClient={apolloClient} store={store} history={history} />,
+  document.getElementById('root'),
+);
+
 registerServiceWorker();

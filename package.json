@@ -56,6 +56,9 @@
             ".js"
           ]
         }
+      ],
+      "react/forbid-prop-types": [
+        0
       ]
     }
   },
