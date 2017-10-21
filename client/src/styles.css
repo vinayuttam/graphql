@@ -1,1 +1,16 @@
 /* Application Styles */
+@import '~antd/dist/antd.css';
+
+#main-app-container {
+  padding: 2rem;
+}
+
+#login-form .login-form {
+  max-width: 300px;
+}
+#login-form .login-form-forgot {
+  float: right;
+}
+#login-form .login-form-button {
+  width: 100%;
+}
