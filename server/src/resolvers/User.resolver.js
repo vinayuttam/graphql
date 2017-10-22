@@ -3,7 +3,7 @@
  */
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import UserModel from '../models';
+import { UserModel, TaskModel } from '../models';
 
 export const Query = {
   Users: () => UserModel.find(),
@@ -13,6 +13,7 @@ export const Query = {
 
 export const User = {
   fullName: source => `${source.firstName} ${source.lastName}`,
+  tasks: source => TaskModel.find({ taskOwnerId: source.id }),
 };
 
 export const Mutation = {
@@ -35,11 +36,11 @@ export const Mutation = {
   loginUser: async (_, params) => {
     const { username, password } = params.data;
 
-    const user = await UserModel.findOne({ username }, 'password');
+    const user = await UserModel.findOne({ username });
 
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = jwt.sign(
-        { username },
+        { username, id: user.id },
         'superSecretText',
         { expiresIn: (60 * 60) },
       );

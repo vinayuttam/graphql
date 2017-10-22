@@ -2,6 +2,7 @@
  * Dependencies
  */
 import Base from './Base.schema';
+import Task from './Task.schema';
 
 const User = `
 extend type Query {
@@ -21,6 +22,7 @@ type User {
   middleName: String
   lastName: String
   fullName: String
+  tasks: [Task]
 }
 
 type UserLoginToken {
@@ -43,4 +45,4 @@ input UserLoginInput {
 }
 `;
 
-export default () => [User, Base];
+export default () => [User, Task, Base];

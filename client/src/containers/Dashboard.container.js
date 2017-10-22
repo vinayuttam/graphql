@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as SessionActions from '../actions/SessionActions';
+import TasksContainer from './Tasks.container';
 
-class DashboardPage extends Component {
+class DashboardContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -18,8 +19,8 @@ class DashboardPage extends Component {
   render() {
     return (
       <div>
-        <h1>Dashboard Page</h1>
         <a href="/logout" onClick={this._logoutUser}>Log Out</a>
+        <TasksContainer />
       </div>
     )
   }
@@ -35,4 +36,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

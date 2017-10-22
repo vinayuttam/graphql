@@ -1,3 +1,4 @@
 import UserModel from './User.model';
+import TaskModel from './Task.model';
 
-export default UserModel;
+export { UserModel, TaskModel };
