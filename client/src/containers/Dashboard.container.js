@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { compose, gql, graphql } from 'react-apollo';
+import { withRouter } from 'react-router';
 import * as SessionActions from '../actions/SessionActions';
 
 class DashboardPage extends Component {
@@ -16,6 +18,8 @@ class DashboardPage extends Component {
   }
 
   render() {
+    console.log(this.props)
+
     return (
       <div>
         <h1>Dashboard Page</h1>
@@ -35,4 +39,22 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
+const listUsers = gql`
+  query {
+    users: Users {
+      firstName
+      lastName
+      fullName
+      id
+    }
+  }
+`;
+
+const DashboardWithData = compose(
+  graphql(listUsers, { name: 'listUsers' })
+)(withRouter(DashboardPage));
+
+
+const DashboardWithDataAndState = connect(mapStateToProps, mapDispatchToProps)(DashboardWithData);
+
+export default DashboardWithDataAndState;

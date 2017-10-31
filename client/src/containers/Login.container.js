@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { gql, graphql } from 'react-apollo';
+import { compose, gql, graphql } from 'react-apollo';
 import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd';
 import { withRouter } from 'react-router';
 import * as SessionActions from '../actions/SessionActions';
@@ -21,7 +21,7 @@ class LoginContainer extends Component {
       if (!err) {
         const { username, password } = values;
 
-        this.props.mutate({ variables: { username, password }})
+        this.props.loginMutation({ variables: { username, password }})
           .then(response => {
             this.props.actions.loginUser(response.data.user);
           })
@@ -88,7 +88,21 @@ const loginMutation = gql`
   }
 `;
 
-const loginWithData = graphql(loginMutation)(withRouter(WrappedLoginContainer));
+const listUsers = gql`
+  query {
+    users: Users {
+      firstName
+      lastName
+      fullName
+      id
+    }
+  }
+`;
+
+const loginWithData = compose(
+  graphql(loginMutation, { name: 'loginMutation' }),
+  graphql(listUsers, { name: 'listUsers' })
+)(withRouter(WrappedLoginContainer));
 
 function mapDispatchToProps(dispatch) {
   return {

@@ -6,6 +6,7 @@ import cors from 'cors';
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 
 import schema from './schema';
 
@@ -28,12 +29,25 @@ app.use((req, res, next) => {
   next();
 });
 
+const somehting = async(req, res) => {
+  let context = {};
+
+  if (req.headers.authorization) {
+    jwt.verify(req.headers.authorization, 'superSecretText', (err, decodedToken) =>{
+      context.username = decodedToken.username;
+    });
+  }
+
+  return {
+    schema,
+    context,
+    graphiql: true
+  };
+};
+
 app.use(
   '/graphql',
-  graphqlHTTP(() => ({
-    schema,
-    graphiql: true,
-  })),
+  graphqlHTTP(somehting),
 );
 
 /* eslint-disable no-console */

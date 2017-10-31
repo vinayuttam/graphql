@@ -10,6 +10,19 @@ const middleware = routerMiddleware(history);
 const networkInterface = createNetworkInterface({ uri: 'http://localhost:4000/graphql' });
 const apolloClient = new ApolloClient({ networkInterface });
 
+networkInterface.use([{
+  applyMiddleware(req, next) {
+    if (!req.options.headers) {
+      req.options.headers = {};
+    }
+
+    if (sessionStorage.getItem('token')) {
+      req.options.headers['Authorization'] = sessionStorage.getItem('token')
+    }
+    next();
+  }
+}]);
+
 const configureStore = preloadedState => createStore(
   combineReducers({
     router,

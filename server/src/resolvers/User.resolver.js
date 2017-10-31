@@ -6,9 +6,15 @@ import jwt from 'jsonwebtoken';
 import UserModel from '../models';
 
 export const Query = {
-  Users: () => UserModel.find(),
+  Users: (_, __, context) => {
+    console.log(context)
+    return UserModel.find()
+  },
 
-  User: (_, params) => UserModel.findById(params.id),
+  User: (_, params, context) => {
+    console.log(context);
+    return UserModel.findById(params.id)
+  },
 };
 
 export const User = {
